@@ -1,0 +1,15 @@
+body {
+    background-color: #f8f9fa;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+footer {
+    font-size: 0.9em;
+}

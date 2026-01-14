@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Job Alert</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS (Flask static file) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container py-4">
+        <h1 class="text-center text-primary mb-4">🔍 LinkedIn Job Alert</h1>
+
+        <form method="POST" class="d-flex justify-content-center mb-4 flex-wrap">
+            <input
+                type="text"
+                name="job_title"
+                class="form-control m-2 w-25"
+                placeholder="Job Title (e.g. Data Analyst)"
+                required
+            >
+            <input
+                type="text"
+                name="location"
+                class="form-control m-2 w-25"
+                placeholder="Location (e.g. Pune, India)"
+                required
+            >
+            <button type="submit" class="btn btn-primary m-2">Search</button>
+        </form>
+
+        {% if jobs %}
+            <h4 class="mb-3 text-secondary text-center">
+                Results for "{{ job_title }}" in "{{ location }}"
+            </h4>
+
+            <div class="row">
+                {% for job in jobs %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ job.title }}</h5>
+                                <p class="card-text">
+                                    <strong>{{ job.company_name }}</strong><br>
+                                    <span class="text-muted">{{ job.location }}</span>
+                                </p>
+                                <a
+                                    href="{{ job.link }}"
+                                    target="_blank"
+                                    class="btn btn-outline-primary btn-sm"
+                                >
+                                    View on LinkedIn
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% elif job_title %}
+            <p class="text-center text-muted">
+                No jobs found for "{{ job_title }}" in "{{ location }}".
+            </p>
+        {% endif %}
+    </div>
+
+    <footer class="text-center mt-4 mb-3 text-muted">
+        © 2025 LinkedIn Job Alert (Python Flask)
+    </footer>
+</body>
+</html>
